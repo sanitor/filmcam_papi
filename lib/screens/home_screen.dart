@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/camera_provider.dart';
 import '../widgets/camera_viewfinder.dart';
-import '../widgets/exposure_scale.dart';
-import '../widgets/exposure_controls.dart';
-import '../widgets/meter_bar.dart';
-import '../widgets/mode_selector.dart';
+import '../widgets/settings_panel.dart';
 import '../widgets/screen_scale.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,9 +18,9 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Camera preview
-            Expanded(
-              flex: 3,
+            // Camera preview — constrained to 4:3 so it doesn't eat vertical space
+            AspectRatio(
+              aspectRatio: 4 / 3,
               child: Stack(
                 children: [
                   const CameraViewfinder(),
@@ -59,27 +56,9 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Exposure compensation scale
-            Expanded(
-              flex: 2,
-              child: Container(
-                alignment: Alignment.center,
-                child: const ExposureScale(),
-              ),
-            ),
-            // Aperture / Shutter controls
-            Expanded(
-              flex: 3,
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: ss.padding(24)),
-                child: const ExposureControls(),
-              ),
-            ),
-            // Meter bar (ISO, pattern, mode, focal length)
-            const MeterBar(),
-            // Mode selector
-            const ModeSelector(),
+            SizedBox(height: ss.padding(20)),
+            // Settings panel — takes remaining space
+            const Expanded(child: SettingsPanel()),
           ],
         ),
       ),

@@ -67,6 +67,7 @@ class CameraProvider extends ChangeNotifier {
   double get selectedAperture => _selectedAperture;
   set selectedAperture(double v) {
     _selectedAperture = v;
+    _syncAutoExposure();
     notifyListeners();
   }
 
@@ -74,6 +75,7 @@ class CameraProvider extends ChangeNotifier {
   double get selectedShutter => _selectedShutter;
   set selectedShutter(double v) {
     _selectedShutter = v;
+    _syncAutoExposure();
     notifyListeners();
   }
 
@@ -81,6 +83,7 @@ class CameraProvider extends ChangeNotifier {
   double get selectedIso => _selectedIso;
   set selectedIso(double v) {
     _selectedIso = v;
+    _syncAutoExposure();
     notifyListeners();
   }
 
@@ -103,6 +106,7 @@ class CameraProvider extends ChangeNotifier {
   PriorityMode get priorityMode => _priorityMode;
   set priorityMode(PriorityMode v) {
     _priorityMode = v;
+    _syncAutoExposure();
     notifyListeners();
   }
 
@@ -110,6 +114,7 @@ class CameraProvider extends ChangeNotifier {
   double get evCompensation => _evCompensation;
   set evCompensation(double v) {
     _evCompensation = v.clamp(-3.0, 3.0);
+    _syncAutoExposure();
     notifyListeners();
   }
 
@@ -184,6 +189,15 @@ class CameraProvider extends ChangeNotifier {
 
   /// Measured EV from the meter engine (with calibration offset).
   double get _effectiveEv => (_exposure?.ev ?? 0) + _profile.evOffset;
+
+  void _syncAutoExposure() {
+    if (_exposure == null) return;
+    if (_priorityMode == PriorityMode.a) {
+      _selectedShutter = computedShutter;
+    } else if (_priorityMode == PriorityMode.s) {
+      _selectedAperture = computedAperture;
+    }
+  }
 
   /// In A mode: shutter is computed from aperture + (meter EV + EC).
   double get computedShutter {
@@ -312,6 +326,7 @@ class CameraProvider extends ChangeNotifier {
     );
     if (reading != null) {
       _exposure = reading;
+      _syncAutoExposure();
       notifyListeners();
     }
   }

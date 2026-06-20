@@ -94,10 +94,9 @@ class _CameraPreview extends StatelessWidget {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    // Camera plugin already handles rotation correctly. The problem
-    // is that previewSize always reports sensor-native (landscape)
-    // dimensions.  In portrait we swap them so FittedBox uses the
-    // correct post-rotation aspect ratio.
+    // Camera plugin already rotates the preview correctly.
+    // previewSize always reports sensor-native (landscape) dimensions,
+    // so in portrait we swap to match the post-rotation aspect ratio.
     final double pw = previewSize.width;
     final double ph = previewSize.height;
     final double childW = isPortrait ? ph : pw;
@@ -105,7 +104,7 @@ class _CameraPreview extends StatelessWidget {
 
     return ClipRect(
       child: FittedBox(
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
         clipBehavior: Clip.hardEdge,
         child: SizedBox(
           width: childW,
