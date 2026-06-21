@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
-import 'package:exif/exif.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CameraMetadata {
   final double aperture;
@@ -145,7 +142,9 @@ class CameraService {
         {'cameraId': cameraId},
       );
       fd = result ?? -1;
-    } on MissingPluginException {}
+    } on MissingPluginException {
+      // platform channel not available
+    }
     await reinitCamera();
     _metadataInitialized = false;
     return fd;

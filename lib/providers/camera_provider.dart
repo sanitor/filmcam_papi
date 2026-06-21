@@ -201,8 +201,9 @@ class CameraProvider extends ChangeNotifier {
 
   /// In A mode: shutter is computed from aperture + (meter EV + EC).
   double get computedShutter {
-    if (_priorityMode != PriorityMode.a || _exposure == null)
+    if (_priorityMode != PriorityMode.a || _exposure == null) {
       return _selectedShutter;
+    }
     return shutterFromEv(
       _effectiveEv - _evCompensation,
       _selectedAperture,
@@ -212,8 +213,9 @@ class CameraProvider extends ChangeNotifier {
 
   /// In S mode: aperture is computed from shutter + (meter EV + EC).
   double get computedAperture {
-    if (_priorityMode != PriorityMode.s || _exposure == null)
+    if (_priorityMode != PriorityMode.s || _exposure == null) {
       return _selectedAperture;
+    }
     return apertureFromEv(
       _effectiveEv - _evCompensation,
       _selectedShutter,

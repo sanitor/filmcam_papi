@@ -290,7 +290,7 @@ class _SettingsPanelState extends State<SettingsPanel> {
               _dragTile(
                 key_: 'tint',
                 icon: Icons.palette_outlined,
-                value: '${p.colorTemp.duv.toStringAsFixed(3)}',
+                value: p.colorTemp.duv.toStringAsFixed(3),
                 labels: _tintValues.map((e) => e.toStringAsFixed(0)).toList(),
                 startIdx: _closestIndex(
                     _tintValues.map((e) => e.toStringAsFixed(0)).toList(),
@@ -425,7 +425,9 @@ class _SettingsPanelState extends State<SettingsPanel> {
   Widget _rowN(List<Widget> tiles, ScreenScale ss) {
     final spacing = ss.padding(4);
     final slots = <Widget>[...tiles];
-    while (slots.length < 5) slots.add(const SizedBox.shrink());
+    while (slots.length < 5) {
+      slots.add(const SizedBox.shrink());
+    }
     final rowChildren = <Widget>[];
     for (var i = 0; i < slots.length; i++) {
       rowChildren.add(Expanded(child: slots[i]));

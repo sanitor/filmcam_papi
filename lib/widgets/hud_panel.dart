@@ -81,8 +81,6 @@ class _RangeHud extends StatelessWidget {
   Widget build(BuildContext context) {
     final dist = provider.distance;
     final sessionType = provider.nativeSessionType;
-    final hasLiveData =
-        sessionType != 'none' && sessionType != 'static_fallback';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +90,7 @@ class _RangeHud extends StatelessWidget {
           const SizedBox(height: 4),
           _row(
             'Near',
-            provider.dofNear(dist.meters).toStringAsFixed(2) + 'm',
+            '${provider.dofNear(dist.meters).toStringAsFixed(2)}m',
             Colors.white54,
           ),
           _row(
