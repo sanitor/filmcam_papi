@@ -297,13 +297,15 @@ class CameraProvider extends ChangeNotifier {
     if (_frameThrottle?.isActive ?? false) return;
     _frameThrottle = Timer(const Duration(milliseconds: 300), () {});
 
+    // Always process color temp so temperature/tint stay live
+    _processColorTempFrame(image);
+
     switch (_mode) {
       case AppMode.meter:
         _processMeterFrame(image);
-      case AppMode.colorTemp:
-        _processColorTempFrame(image);
       case AppMode.range:
       case AppMode.viewfinder:
+      case AppMode.colorTemp:
         break;
     }
   }
@@ -333,10 +335,14 @@ class CameraProvider extends ChangeNotifier {
 
   void _processColorTempFrame(CameraImage image) {
     final reading = _colorTempEngine.processFrame(image);
-    if (reading.cct > 0) {
-      _colorTemp = reading;
-      notifyListeners();
-    }
+    if (reading.cct <= 0) return;
+    final cctChanged = (_colorTemp.cct == 0) ||
+        (reading.cct - _colorTemp.cct).abs() > 50;
+    final duvChanged = (_colorTemp.duv == 0) ||
+        (reading.duv - _colorTemp.duv).abs() > 0.001;
+    if (!cctChanged && !duvChanged) return;
+    _colorTemp = reading;
+    notifyListeners();
   }
 
   void setMode(AppMode mode) {
