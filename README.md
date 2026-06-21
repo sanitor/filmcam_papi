@@ -3,6 +3,10 @@
   <img alt="License" src="https://img.shields.io/badge/license-GPLv3-blue?style=flat-square">
 </picture>
 
+<p align="center">
+  <img src="assets/icon_original.png" width="128" height="128" alt="FilmCam Assist icon">
+</p>
+
 # FilmCam Assist
 
 A professional camera assistant for Android tablet — real-time light metering, color temperature measurement, distance/range finding, and full manual exposure control.
