@@ -13,6 +13,13 @@ A professional camera assistant for Android tablet — real-time light metering,
 
 > **Status**: Active development. Built for and tested on Galaxy Tab S5e (SM-T500), targeting Android tablets with a rear camera.
 
+## Screenshots
+
+<p float="left">
+  <img src="assets/screenshots/screenshot_main.png" width="45%" alt="Main interface">
+  <img src="assets/screenshots/screenshot2.png" width="45%" alt="Settings panel">
+</p>
+
 ## Features
 
 | Category | Capability |
