@@ -71,7 +71,7 @@ class CameraMetadataReader {
         guard let d = device else { return }
         latestAperture = Double(d.lensAperture)
         latestExposureTime = Int64(d.exposureDuration.seconds * 1_000_000_000)
-        latestIso = d.iso
+        latestIso = Int(d.iso)
     }
 
     private func observeChanges() {
