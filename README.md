@@ -11,7 +11,7 @@
 
 A professional camera assistant for mobile — real-time light metering, color temperature measurement, distance/range finding, and full manual exposure control.
 
-> **Status**: Active development. Currently implemented on Android (tested on Galaxy Tab S5e / SM-T500). iOS support is planned.
+> **Status**: Active development. Android (tested on Galaxy Tab S5e / SM-T500). iOS in development (CI builds passing).
 
 ## Screenshots
 
@@ -49,9 +49,13 @@ lib/
 - **Distance measurement**
   - Multi-camera devices: rangefinder-style focus assist using dual/triple camera disparity
   - Single-camera devices: monocular vision-based distance estimation via ML
-- **iOS platform support**
+- **iOS CI & release** ✅ CI builds, unsigned `.app` released on tag
+- **iOS native** ✅ Camera metadata + ARKit Scene Depth implemented (iOS 14+)
+- **Signed iOS builds** — Obtain Apple Developer certificate for production release
 
 ## Building
+
+### Android
 
 ```bash
 flutter pub get
@@ -59,9 +63,18 @@ flutter build apk --debug
 adb install -r build/app/outputs/flutter-apk/app-debug.apk
 ```
 
+### iOS (on macOS, requires Apple Developer certificate for signed builds)
+
+```bash
+flutter pub get
+flutter build ios --no-codesign --debug  # unsigned, CI use
+flutter build ios --debug                # signed, device use
+```
+
 ## Acknowledgements
 
-- [camera](https://pub.dev/packages/camera) – CameraX integration
+- [camera](https://pub.dev/packages/camera) – CameraX + AVFoundation integration
+- [ARKit](https://developer.apple.com/augmented-reality/arkit/) – Scene Depth for distance measurement (iOS)
 - [tflite_flutter](https://pub.dev/packages/tflite_flutter) – On-device ML inference
 - [sensors_plus](https://pub.dev/packages/sensors_plus) – Device orientation
 - [Provider](https://pub.dev/packages/provider) – State management
