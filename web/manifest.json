@@ -1,6 +1,6 @@
 {
-    "name": "filmcam_papi",
-    "short_name": "filmcam_papi",
+    "name": "FilmCam Papi",
+    "short_name": "FilmCam Papi",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

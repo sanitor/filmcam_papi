@@ -4,10 +4,10 @@
 </picture>
 
 <p align="center">
-  <img src="assets/icon_original.png" width="128" height="128" alt="FilmCam Assist icon">
+  <img src="assets/icon_original.png" width="128" height="128" alt="FilmCam Papi icon">
 </p>
 
-# FilmCam Assist
+# FilmCam Papi
 
 A professional camera assistant for mobile — real-time light metering, color temperature measurement, distance/range finding, and full manual exposure control.
 

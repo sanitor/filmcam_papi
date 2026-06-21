@@ -1,4 +1,4 @@
-# FilmCam Assist — UI 设计 v2
+# FilmCam Papi — UI 设计 v2
 
 ## 设计原则
 

@@ -19,7 +19,7 @@ class FilmCamApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'FilmCam Assist',
+      title: 'FilmCam Papi',
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );

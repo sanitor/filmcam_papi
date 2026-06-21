@@ -4,7 +4,7 @@
     <!-- ARCore uses AR camera; optional so app works on non-AR devices -->
     <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
     <application
-        android:label="FilmCam Assist"
+        android:label="FilmCam Papi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <!-- ARCore metadata -->
