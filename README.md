@@ -9,9 +9,9 @@
 
 # FilmCam Assist
 
-A professional camera assistant for Android tablet — real-time light metering, color temperature measurement, distance/range finding, and full manual exposure control.
+A professional camera assistant for mobile — real-time light metering, color temperature measurement, distance/range finding, and full manual exposure control.
 
-> **Status**: Active development. Built for and tested on Galaxy Tab S5e (SM-T500), targeting Android tablets with a rear camera.
+> **Status**: Active development. Currently implemented on Android (tested on Galaxy Tab S5e / SM-T500). iOS support is planned.
 
 ## Screenshots
 
@@ -43,6 +43,13 @@ lib/
 ├── widgets/          # UI components: SettingsPanel, CameraViewfinder, HUD, MeterBar, etc.
 └── main.dart         # App entry point
 ```
+
+## Roadmap
+
+- **Distance measurement**
+  - Multi-camera devices: rangefinder-style focus assist using dual/triple camera disparity
+  - Single-camera devices: monocular vision-based distance estimation via ML
+- **iOS platform support**
 
 ## Building
 
