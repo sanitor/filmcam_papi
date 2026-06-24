@@ -92,7 +92,14 @@ jobs:
       - run: flutter pub get
       - run: flutter build ios --no-codesign --release
 
-      - name: Upload iOS .app to Release
+      - name: Package .app into .ipa
+        run: |
+          mkdir -p /tmp/ipa/Payload
+          cp -R build/ios/iphoneos/Runner.app /tmp/ipa/Payload/
+          cd /tmp/ipa && zip -qr filmcam-papi-ios-release.ipa Payload/
+          mv filmcam-papi-ios-release.ipa ${{ github.workspace }}/
+
+      - name: Upload iOS IPA to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/ios/iphoneos/Runner.app
+          files: filmcam-papi-ios-release.ipa
