@@ -1,35 +1,59 @@
 import Flutter
 import UIKit
 
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+        let engine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
+        let controller = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
+        let sceneWindow = UIWindow(windowScene: windowScene)
+        sceneWindow.rootViewController = controller
+        self.window = sceneWindow
+        sceneWindow.makeKeyAndVisible()
+    }
+}
+
 @main
 @objc class AppDelegate: FlutterAppDelegate {
     private var metadataReader: CameraMetadataReader?
     private var depthHelper: ArDepthHelper?
+    lazy var flutterEngine = FlutterEngine(name: "main_engine")
 
     override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        GeneratedPluginRegistrant.register(with: self)
-        guard let controller = window?.rootViewController as? FlutterViewController else {
-            return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-        }
+        flutterEngine.run()
+        GeneratedPluginRegistrant.register(with: flutterEngine)
 
+        let messenger = flutterEngine.binaryMessenger
         let metadataChannel = FlutterMethodChannel(
             name: "com.filmcam/camera_metadata",
-            binaryMessenger: controller.binaryMessenger)
+            binaryMessenger: messenger)
         metadataChannel.setMethodCallHandler { [weak self] call, result in
             self?.handleMetadataCall(call, result: result)
         }
 
         let depthChannel = FlutterMethodChannel(
             name: "com.filmcam/arcore_depth",
-            binaryMessenger: controller.binaryMessenger)
+            binaryMessenger: messenger)
         depthChannel.setMethodCallHandler { [weak self] call, result in
             self?.handleDepthCall(call, result: result)
         }
 
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
+    override func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        config.delegateClass = SceneDelegate.self
+        return config
     }
 
     private func handleMetadataCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
